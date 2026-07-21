@@ -1,7 +1,8 @@
 <Solution>
-  <Project Path="BankingSystem.Application/BankingSystem.Application.csproj">
-    <Build Solution="Debug|*" Project="true" />
-  </Project>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="BankingSystem.Application/BankingSystem.Application.csproj" />
   <Project Path="BankingSystem.Domain/BankingSystem.Domain.csproj" />
   <Project Path="BankingSystem.Infrastructure/BankingSystem.Infrastructure.csproj" />
   <Project Path="BankingSystem.UnitTests/BankingSystem.UnitTests.csproj" />

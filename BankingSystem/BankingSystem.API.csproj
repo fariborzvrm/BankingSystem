@@ -5,6 +5,7 @@
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<DisableOpenApiGenerator>true</DisableOpenApiGenerator>
+    <UserSecretsId>8fd6e2c7-2c8f-4456-9736-ecb43b8c3f17</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,10 +19,6 @@
 	<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.2.3" />
 	<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.2.3" />
 	<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<Folder Include="Middlewares\" />
   </ItemGroup>
 
   <ItemGroup>
