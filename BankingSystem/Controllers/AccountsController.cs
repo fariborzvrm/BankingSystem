@@ -8,6 +8,7 @@ using System.Security.Claims;
 namespace BankingSystem.Api.Controllers
 {
     [Authorize]
+    //[AllowAnonymous]
     [ApiController]
     [Route("api/accounts")]
     public class AccountsController : ControllerBase
