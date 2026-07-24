@@ -1,6 +1,6 @@
 ﻿namespace BankingSystem.UnitTests
 {
-    public class UnitTest1
+    public class BranchServiceTests
     {
         [Fact]
         public void Test1()
