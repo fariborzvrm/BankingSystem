@@ -7,8 +7,7 @@ using System.Security.Claims;
 
 namespace BankingSystem.Api.Controllers
 {
-    [Authorize]
-    //[AllowAnonymous]
+    [Authorize]    
     [ApiController]
     [Route("api/accounts")]
     public class AccountsController : ControllerBase
@@ -20,7 +19,7 @@ namespace BankingSystem.Api.Controllers
             _bankAccountService = bankAccountService;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<ActionResult<BankAccountDto>> CreateAccount([FromQuery] string branchName, CancellationToken cancellationToken)
         {
             
@@ -37,7 +36,7 @@ namespace BankingSystem.Api.Controllers
             return Ok(createdAccount);
         }
 
-        [HttpGet("list")]
+        [HttpGet]
         public async Task<ActionResult<List<BankAccountDto>>> GetUserAccounts()
         {
             

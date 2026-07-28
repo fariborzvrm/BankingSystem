@@ -19,7 +19,7 @@ namespace BankingSystem.Application.Services
         public async Task<IReadOnlyList<string>> GetBranchesAsync(CancellationToken cancellationToken = default)
         {
             if (_cache.TryGetValue(CacheKey, out IReadOnlyList<string>? cachedBranches))
-            return cachedBranches!;
+                 return cachedBranches!;
 
             var branches = await _httpClient.GetFromJsonAsync<List<string>>("api/branches", cancellationToken)
                       ?? new List<string>();
@@ -36,8 +36,10 @@ namespace BankingSystem.Application.Services
 
             var branches = await GetBranchesAsync(cancellationToken);
 
+            var trimmedBranchName = branchName.Trim();
+
             return branches.Any(b =>
-                string.Equals(b.Trim(), branchName.Trim(), StringComparison.OrdinalIgnoreCase));
+                string.Equals(b.Trim(), trimmedBranchName, StringComparison.OrdinalIgnoreCase));
         }
 
     }

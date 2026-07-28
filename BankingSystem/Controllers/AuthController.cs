@@ -18,7 +18,7 @@ namespace BankingSystem.API.Controllers;
     }
 
 
-    [HttpPost("register")]
+    [HttpPost]
 
     public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto)
     {
@@ -30,7 +30,7 @@ namespace BankingSystem.API.Controllers;
         return Ok(response);
     }
 
-    [HttpPost("login")]
+    [HttpPost]
 
     public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
     {
