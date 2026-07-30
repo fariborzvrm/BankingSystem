@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\BankingSystem.Application\BankingSystem.Application.csproj" />
-	<ProjectReference Include="..\BankingSystem.Domain\BankingSystem.Domain.csproj" />
+    <Compile Remove="Security\**" />
+    <EmbeddedResource Remove="Security\**" />
+    <None Remove="Security\**" />
   </ItemGroup>
 
   <ItemGroup>
-	<Folder Include="Security\" />
+	<ProjectReference Include="..\BankingSystem.Application\BankingSystem.Application.csproj" />
+	<ProjectReference Include="..\BankingSystem.Domain\BankingSystem.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
+	<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.10" />
   </ItemGroup>
 
 </Project>
