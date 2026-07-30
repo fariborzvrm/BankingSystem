@@ -6,6 +6,7 @@ using BankingSystem.Application.Services;
 using BankingSystem.Infrastructure.Identity;
 using BankingSystem.Infrastructure.Persistence;
 using BankingSystem.Infrastructure.Repositories;
+using BankingSystem.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
