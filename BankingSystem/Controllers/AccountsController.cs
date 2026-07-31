@@ -20,7 +20,7 @@ namespace BankingSystem.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BankAccountDto>> CreateAccount([FromQuery] string branchName, CancellationToken cancellationToken)
+        public async Task<ActionResult<BankAccountDto>> CreateAccount([FromQuery] BranchNameDto branchNameDto, CancellationToken cancellationToken)
         {
             
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -30,7 +30,7 @@ namespace BankingSystem.Api.Controllers
                 return Unauthorized("User ID could not be found in the token.");
             }
 
-            var createdAccount = await _bankAccountService.CreateAccountAsync(userId, branchName, cancellationToken);
+            var createdAccount = await _bankAccountService.CreateAccountAsync(userId, branchNameDto.BranchName, cancellationToken);
 
 
             return Ok(createdAccount);
