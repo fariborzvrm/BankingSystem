@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BankingSystem.Application.DTOs;
+using BankingSystem.Application.Exceptions;
 using BankingSystem.Application.Interfaces;
 using BankingSystem.Domain.Entities;
 using System;
@@ -30,19 +31,16 @@ namespace BankingSystem.Application.Services
         }
 
         public async Task<BankAccountDto> CreateAccountAsync(string userId, string branchName, CancellationToken cancellationToken)
-        {
-            if (string.IsNullOrWhiteSpace(userId))
-                throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
-
-            if (string.IsNullOrWhiteSpace(branchName))
-                throw new ArgumentException("Branch name is required.", nameof(branchName));
-
+        {            
+            
             var isValidBranch = await _branchService.IsValidBranchAsync(branchName, cancellationToken);
+
             if (!isValidBranch)
             {
                 
-                throw new InvalidOperationException($"The branch '{branchName}' is not a valid bank branch.");
+                throw new NotFoundAppException($"The branch '{branchName}' is not a valid bank branch.");
             }
+
 
             string accountNumber;
 
@@ -70,10 +68,7 @@ namespace BankingSystem.Application.Services
         }
 
         public async Task<List<BankAccountDto>> GetUserAccountsAsync(string userId)
-        {
-            if (string.IsNullOrWhiteSpace(userId))
-                throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
-
+        {            
             var bankAccounts = await _bankAccountRepository.GetByUserIdAsync(userId);
 
             return _mapper.Map<List<BankAccountDto>>(bankAccounts);
