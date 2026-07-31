@@ -89,59 +89,59 @@ namespace BankingSystem.Infrastructure.Identity
                     Message = "User does not exist."
                 };
             }
-                var isPasswordValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
 
-                if (!isPasswordValid)
+            if (!isPasswordValid)
+            {
+                return new AuthResponseDto
                 {
-                    return new AuthResponseDto
-                    {
-                        IsSuccess = false,
-                        Message = "Invalid username or password."
-                    };
-                }
+                    IsSuccess = false,
+                    Message = "Invalid username or password."
+                };
+            }
 
-                var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
 
-                var claims = new List<Claim>
+            var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
                     new Claim(ClaimTypes.Name, user.UserName ?? string.Empty)
                 };
 
-                foreach (var role in roles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-                }
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:DurationInMinutes"]));
-
-                var token = new JwtSecurityToken(
-                    _configuration["Jwt:Issuer"],
-                    _configuration["Jwt:Audience"],
-                    claims,
-                    expires: expires,
-                    signingCredentials: creds
-                );
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                var tokenString = tokenHandler.WriteToken(token);
-
-                return new AuthResponseDto
-                {
-                    UserId = user.Id,
-                    Email = user.Email ?? string.Empty,
-                    IsSuccess = true,
-                    Message = "Login successful.",
-                    Token = tokenString
-                };
-
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:DurationInMinutes"]));
+
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return new AuthResponseDto
+            {
+                UserId = user.Id,
+                Email = user.Email ?? string.Empty,
+                IsSuccess = true,
+                Message = "Login successful.",
+                Token = tokenString
+            };
+
         }
     }
+}
 
