@@ -9,7 +9,9 @@ using BankingSystem.Infrastructure.Repositories;
 using BankingSystem.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using FluentValidation;
+using BankingSystem.API.Validators;
+using BankingSystem.Api.Exceptions;
 
 
 
@@ -42,7 +44,13 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 
+builder.Services.AddValidatorsFromAssemblyContaining<BankAccountValidator>();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddMemoryCache();
+
 
 builder.Services.AddHttpClient<IBranchService, BranchService>(client =>
 {
@@ -61,6 +69,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
